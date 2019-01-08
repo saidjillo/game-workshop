@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}
+        Get the games collections you ever wanted
+    {% endblock %}</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" 
+          crossorigin="anonymous">
+
+    <!-- fontawsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" 
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" 
+          crossorigin="anonymous">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+
+ 
+
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light  header-top">
+            <a href="{% url 'home' %}" class="navbar-brand">
+                <span class="brand-inf">Game</span>
+                <span class="inf-text">Workshop</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- form -->
+                <form action="{% url 'search' %}" method="GET" class="ml-5 my-lg-0 mr-auto w-50 gm-search">
+                    <label for="inlineFormInputGroupUsername2" class="sr-only">search here</label>
+                    <div class="input-group mb-2 mr-sm-2">
+                        <input type="text" class="form-control" name="q" id="inlineFormInputGroupUsername2" placeholder="search here">
+                        <div class="input-group-append">
+                            <button class="input-group-text btn-outline-dark bg-dark text-light">search</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- form -->
+
+              <ul class="navbar-nav mr-auto">
+              
+             
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if user.is_authenticated %}
+                        {{user.username}}
+                        {% else %}
+                        <i class="fas fa-user"></i>
+                        {% endif %}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'account:logout_view' %}">Logout</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'account:dashboard_view' username=user.username %}">Dashboard</a>
+                        {% else %}
+                        <a class="dropdown-item" href="{% url 'account:login' %}">Login</a>
+                        <a class="dropdown-item" href="{% url 'account:signup' %}">Signup</a>
+                        {% endif %} 
+                  </div>
+                </li>          
+              </ul>
+          
+            </div>
+          </nav>
+    <!-- nav ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="container my-2">
+        <ul class="nav justify-content-left">
+            <li class="nav-item">
+              <a class="nav-link linker" href="{% url 'all_games' %}">Games</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link linker" href="{% url 'home' %}">Collections</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+
+        {% block content %}
+        {% endblock %}
+   <footer class="container-fluid bg-dark text-light">
+       <div class="container">
+            <div class="row">
+                <div class="col-md-4 p-3">
+                    <h3 class="text-light">GameWorkshop</h3>
+                    <p class="text-light">We use our online database to store information related to games, articles , information about games , developer and when they were released.</p>
+                </div> 
+                <div class="col-md-4 p-3">
+                    <h3 class="text-light ml-3">Resources</h3>
+                    <nav class="nav flex-column ml-3">
+                        <a class="nav-link text-light" href="#">Games</a>
+                        <a class="nav-link text-light" href="#">Collections</a>
+                    </nav>
+                </div>    
+                <div class="col-md-4 p-3">
+                    <h3 class="text-light ml-3">Contacts</h3>
+                    <nav class="nav flex-column ml-3">
+                        <p><i class="fas fa-home mr-3"></i>Eastleigh Nairobi, Kenya</p>
+                        <p><i class="fas fa-envelope mr-3"></i>umurjillo@gmail.com</p>
+                        <p><i class="fas fa-phone mr-3"></i>+254740169448</p>
+                    </nav>
+                </div>   
+            </div> 
+            <hr class="border">
+            <div class="row">
+       <!--Copyright-->
+       <p class="text-center text-md-left">© 2018 Copyright:
+            <a href="{% url 'home' %}">
+              <strong> gameworkshop.com</strong>
+            </a>
+          </p>
+          
+            </div>
+       </div>
+   </footer>
+
+
+
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" 
+            integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" 
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" 
+            crossorigin="anonymous"></script>
+</body>
+</html>

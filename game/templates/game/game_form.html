@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{gamelist.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">      
+        <div class="col-md-12">
+            <div class="headers">
+                <h3>{{gamelist.name}} <small class="text-muted float-right">120 views</small></h3>
+                <p>created by: {{gamelist.owner.user.username}}</p>
+                <span class="text-muted"><strong class="text-light">created on : </strong>{{gamelist.date_created}}</span>
+                <a href="" class="btn btn-outline-light btn-lg ml-5">+ Add game</a>
+            </div>
+            <p class="coll-list ml-5 my-2">{{gamelist.description}}</p>
+        </div>
+    </div>
+            
+    <div class="row mb-5">
+        <div class="col-md-6 offset-3">
+            <form method="POST" action="{% url 'game:game_create' list_pk=gamelist.pk %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{game_form}}
+                <input type="submit" class="btn btn-sm btn-secondary my-3 float-right" value="Create game">
+            </form>      
+        </div>
+    </div>
+
+</div>
+{% endblock %}

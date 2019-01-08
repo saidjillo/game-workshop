@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- col-md-4 -->
+        <div class="col-md-4 align-self-start">
+            <h3>Suggested</h3>
+            <div class="quick-links">
+                <ul>
+
+                    {% for list in gameslist %}
+                        {% if list.game.all.count > 0 %}
+                        <li>
+                            <a href="{% url 'list:list_detail' pk=list.pk %}">{{list.name}}<span class="badge badge-info">{{list.game.all.count}}</span></a>                     
+                            <ul>
+                                {% for g in list.game.all|slice:":3" %}
+                                <li><a style="display:block;" href="{% url 'game:game_detail' pk=g.pk %}">{{g.title}}</a></li>
+                                {% endfor %}                         
+                            </ul>                     
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+        <!-- col-md-4 ends -->
+
+        <!-- col-md-8 -->
+        <div class="col-md-8 mb-3">
+            <div class="anonymous-games d-flex flex-wrap justify-content-around">
+
+                {% for game in games %}
+                <div class="anonymous-games__game d-flex my-2  flex-column p-2 align-self-start">
+                    <h4 class="text-dark text-left"><a class="text-dark" href="{% url 'game:game_detail' pk=game.pk %}">{{game.title}}</a></h4>
+                    {% load static %}
+                    <img src="{% static 'games/g.jpg' %}" alt="">
+                    <span class="mt-1 mb-1 text-left p-2 pr-2" style="font-size:15px;color:#333;line-height:1.3rem;">{{game.description|truncatechars:110|safe}}</span>
+                    <div class="anonymous-games__game--body d-flex flex-row border-top pt-1">
+                        <span class="mr-auto" style="font-size:12px;">{{game.views}} views</span>
+                        <span class="text-muted" style="font-size:12px;">J{{game.date_uploaded}}</span>
+                    </div>
+                    <!-- <div class="game-socio">
+                    </div> -->
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        <!-- col-md-8 starts-->
+
+    </div>
+</div>
+{% endblock %}

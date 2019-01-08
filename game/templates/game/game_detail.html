@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}{{game.tile}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <h4>Related games</h4>
+            <hr>
+            <div class="related-games">
+                {% for game in related_games %}
+                <div class="related-games--container my-3 border-bottom">
+                        {% load static %}
+                        <img src="{% static 'games/g.jpg' %}" alt="" class="related-games__img">
+                        <div class="related-games__body">
+                            <h5 class="text-dark ml-1">{{game.title}}</h5>
+                            <span class="ml-1"><a href="{% url 'game:game_detail' pk=game.pk %}">{{game.description|truncatechars:35}}</a></span>
+                            <span class="ml-1"><small class="text-muted">by : </small><small class="text-primary">{{game.date_uploaded}}</small></span>
+                        </div>
+                    </div>
+                {% endfor %}       
+            </div>
+        </div>
+        <div class="col-md-6">
+            <!-- game workshop -->
+            <div class="workshop-game">
+                {% load static %}
+                <img src="{% static 'games/g.jpg' %}" alt="" class="workshop-game__img">
+                <div class="workshop-game__body">
+                    <h1 class="workshop-game__body--header">{{game.title}}</h1>
+                    <div class="workshop-game__body--contents">
+                        <span class="workshop-game__body--contents-descr mt-2">{{game.description}}</span>
+                        <span class="workshop-game__body--contents-developer mt-5">
+                           <strong class="text-muted">Developer : </strong>
+                           <small class="text-primary">{{game.game_list.owner.user.username}}</small>
+                        </span>
+                        <span class="workshop-game__body--contents-date">
+                            <strong class="text-muted">Created :</strong>
+                            <small class="text-muted">{{game.date_uploaded}}</small>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <a href="{{game.url}}" class="btn btn-sm btn-outline-dark mt-3 float-right">Visit website</a>
+            <!-- game workshop -->
+            <br />
+            <br />
+            <br />
+
+            <!-- is user -->
+            {% if owner == True %}
+            <hr style="border:5px solid #A58500;">
+            <form method="POST">
+                    {% csrf_token %}
+                    <!-- form row one -->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            {{form.title}}                    
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{form.game_developer}}
+                        </div> 
+                    </div>
+
+                    <!-- form row two -->
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            {{form.url}}                    
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{form.image_cover}}
+                        </div> 
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            {{form.description}}
+                        </div>
+                    </div>
+
+                    <div class="form-row mb-3">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success btn-block btn-sm">Edit game</button>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{% url 'game:game_delete' pk=game.pk %}" class="btn btn-outline-danger btn-block btn-sm">delete game</a>
+                        </div>
+                    </div>
+                           
+            </form>
+            {% endif %}
+            <!-- is user ends -->
+        </div>
+        <div class="col-md-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'list:list_detail' pk=game_list.pk %}">{{game_list.name}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{game.title}}</li>
+                </ol>
+                <h5>Other games from the collection</h5>
+                <ul class="list-unstyled">
+                    {% for game in game_list.game.all %}
+                    <li class="list-item ml-5 my-3" style="line-height:1;">
+                        <a href="{% url 'game:game_detail' pk=game.pk %}" class="" style="color: #70579D;display:block">{{game.title}}</a>
+                        <span class="text-muted" style="font-weight:lighter;font-size:13px;">{{game.date_uploaded}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            
+        </div>
+    </div>
+          
+</div>
+{% endblock %}

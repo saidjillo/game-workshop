@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Create your games collection in games workshop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h5 class="text-center">Create games collection with games workshop</h5>
+    <form method="POST" class="col-md-8 offset-md-2 mb-5">
+        {% if error %}
+        {{error}}
+        {% endif %}
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn btn-outline-success my-2 mb-5 float-right" value="create list">
+        <br />
+    </form>
+</div>
+{% endblock %}

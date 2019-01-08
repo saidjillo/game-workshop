@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Create free account and enjoy the best of our games collections
+{% endblock %}
+
+{% block content %}
+<div class="container">
+        <div class="row">
+            <div class="col col-md-6 col-md-offset-3">
+     
+                    <h1>Create a free account</h1>
+                    <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form}}                      
+                        <input type="submit" class="btn btn-primary" value="Create Account">
+                    </form>
+             
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{user.username}} dashboard | GameWorkshop
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="dashboard">
+                <h3 class="p-1 ml-3">Dashboard</h3>
+                <hr>
+                <div class="user-cred">
+                    <i class="fas fa-user ml-5"></i>
+                    <span class="text-dark" style="margin-left:3%; font-weight:bolder">{{user.username}}</span>
+                </div>
+                <br />
+                <hr>   
+                <h4><a class="adding p-3" href="{% url 'list:list_create' %}"><span style="font-weight:bolder">+</span> Add Game Collections</a></h4>
+            </div>
+        </div>
+        <div class="col-md-9">
+                <div class="row">
+                        <div class="col-xs-12 container-fluid">
+                          <nav>
+                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Game Collections</a>
+                              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">my games</a>
+                              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Analysis</a>
+                              <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">About</a>
+                            </div>
+                          </nav>
+                          <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                            <div class="tab-pane fade show active card-columns pl-3 py-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                              {% for list in game_lists %}
+                                <div class="card" style="width: 15rem;">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{list.name}}</h5>
+                                      <h6 class="card-subtitle mb-2 text-muted">{{list.game.all.count}} games</h6>                                     
+                                      <h6 class="card-subtitle mb-2 text-muted" style="font-size:13px; font-weight:lighter">{{list.date_created}}</h6>                                     
+                                      <p class="card-text">{{list.description|truncatechars:120}}</p>
+                                      <hr>
+                                      <a href="{% url 'list:list_detail' pk=list.pk %}" class="btn btn-outline-secondary">Read More</a>
+                                    </div>
+                                  </div>
+                              {% endfor %}
+                            </div>
+                            <div class="tab-pane fade card-columns pl-3 py-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                {% for list in games %}
+                                    {% for game in list.game.all %}
+                                    <div class="card" style="width: 15rem;">
+                                        {% load static %}
+                                          <img class="card-img-top" src="{% static 'games/g.jpg' %}" alt="Card image cap">
+                                          <div class="card-body cb">
+                                            <h5 class="card-title">{{game.title}}</h5>
+                                            <p class="card-text">{{game.description|truncatechars:120}}</p>
+                                            <div class="g-meta">
+                                                <hr>
+                                                <h6 class="card-subtitle mb-2 text-light" style="font-size:13px; font-weight:lighter">Jan. 2, 2019, 11:58 a.m.</h6>
+                                                <a href="{% url 'game:game_detail' pk=game.pk %}" class="btn btn-outline-light">View</a>
+                                            </div>
+                                          </div>
+                                      </div>
+                                    {% endfor %}                          
+                                {% endfor %}
+                            </div>
+                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <p class="text-muted m-5">Currently Analysis for your account are not available.</p>
+                            </div>
+                            <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                              
+                            </div>
+                          </div>
+                        
+                        </div>
+                      </div>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

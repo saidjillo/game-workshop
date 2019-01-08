@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}{{gamelist.name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="headers">
+                <h3>{{gamelist.name}} <small class="text-muted float-right">120 views</small></h3>
+                <p>created by: {{gamelist.owner.user.username}}</p>
+                <span class="text-muted mr-auto"><span class="text-light">created on : </span>{{gamelist.date_created}}</span>
+                {% if owner == True %}
+                <a href="{% url 'game:game_add' game_list_pk=gamelist.pk %}" class="btn btn-outline-light btn-lg ml-5">+ Add game</a>
+                {% endif %}
+            </div>
+            <p class="coll-list ml-5 my-3">{{gamelist.description}}</p>
+           
+        </div>
+    </div>
+
+    <!-- games row -->
+    <div class="row">
+        <div class="col-md-8 mb-3 offset-md-2">
+                <div class="all-games d-flex flex-wrap justify-content-around">
+                        {% for g in games %}
+                        <div class="all-games__game p-2  my-2 border align-self-start" style="width:22rem;">
+                            {% load static %}
+                            <img src="{% static 'games/g.jpg' %}" alt="" class="all-games__game--img">
+                            <div class="all-games__game--body">
+                                <h4 class="all-games__game--text"><a href="{% url 'game:game_detail' pk=g.pk %}">{{g.title}}</a></h4>
+                                <span class="descr">{{g.description|truncatechars:200}}</span>
+                                <div class="all-games__game--metadata">
+                                    <span><strong class="sr-ng">Developer</strong>: <span style="font-weight:lighter;color: #136CB2;">{{g.game_list.owner.user.username}}</span></span>
+                                    <span><strong class="sr-ng">Uploaded</strong>: <span class="text-muted" style="font-weight:lighter;font-size:13px;">{{g.date_uploaded}}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+                {% if owner == True %}
+                <a href="{% url 'list:list_update' pk=gamelist.pk %}" class="btn text-secondary float-right my-2">edit</a>
+                {% endif %}
+        </div>
+    </div>
+    <!-- games row ends -->
+</div>
+{% endblock %}

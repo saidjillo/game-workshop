@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<div class="container">
+   <div class="row">
+       <div class="col-md-8 offset-md-2 mb-3">
+     <!--Table-->
+<table class="table table-striped borderless w-100">
+       
+        <!--Table head-->
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <!--Table head-->
+      
+        <!--Table body-->
+        <tbody>
+        {% for result in results %}  
+            {% if result.get_name == 'GameList' %} 
+                <tr class="my-table">
+                    <td style="color:cornflowerblue"><a href="{% url 'home' %}">Collection</a></td>
+                    <td>
+                        <h4><a href="{% url 'list:list_detail' pk=result.pk %}">{{result.name}}</a></h4>
+                        <span><small class="text-muted">posted {{result.date_created}}</small>   <small class="text-muted">by</small><i style="color: #212529;" class="ml-2">{{result.owner.user.username}}</i></span>
+                    </td> 
+                </tr>
+            {% elif result.get_name == 'Game' %}
+                <tr class="my-table">
+                    <td style="color:cornflowerblue"><a href="{% url 'all_games' %}">Game</a></td>
+                    <td>
+                        <h4><a href="{% url 'game:game_detail' pk=result.pk %}">{{result.title}}</a></h4>
+                        <span><small class="text-muted">posted  {{result.date_uploaded}}</small>   <small class="text-muted">by</small><i style="color: #212529;" class="ml-2">{{result.game_list.owner.user.username}}</i></span>
+                    </td>
+                </tr>
+            {% endif %}
+
+            {% empty %}
+            <h5>No data found</h5>
+        {% endfor %}
+     
+        </tbody>
+        <!--Table body-->    
+        
+      </table>
+      <!--Table-->
+
+       </div>
+   </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit | {{object}} {% endblock %}
+
+{% block content %}
+<div class="container">
+      <!-- is user -->
+      {% if owner == True %}
+      <p class="text-center"> Edit <strong>{{object}}</strong> </p>
+      <form method="POST" class="col-md-8 offset-md-2">
+              {% csrf_token %}
+              <!-- form row one -->
+              <div class="form-row">
+                  <div class="col-md-12 mb-3">
+                      {{form.name}}                     
+                  </div>
+              </div>
+
+              <!-- form row two -->
+              <div class="form-row">
+                  <div class="col-md-12 mb-3">
+                    {{form.description}}                   
+                  </div>       
+              </div>
+
+              <div class="form-row mb-3">
+                  <div class="col-md-6">
+                      <button type="submit" class="btn btn-success btn-block btn-sm">Edit game</button>
+                  </div>
+              </div>
+                     
+      </form>
+      {% endif %}
+      <!-- is user ends -->
+</div>
+{% endblock %}
