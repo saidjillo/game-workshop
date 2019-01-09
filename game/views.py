@@ -83,10 +83,6 @@ class GameDetailView(UpdateView,DetailView):
         )
         hit.increase_hit()
 
-        print('========================')
-        print(game.image_cover.url)
-        print('========================')
-
         return context
 
    

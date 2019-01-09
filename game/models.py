@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify
 
 from gamelist.models import GameList
-from account.models import Member
 
 # Create your models here.
 class Game(models.Model):
@@ -45,6 +44,6 @@ class HitCount(models.Model):
 class Ratings(models.Model):
     stars  = models.IntegerField()
     game   = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="stars")
-  
+
     def __str__(self):
         return f'{self.game.title} stars => {self.stars}'
