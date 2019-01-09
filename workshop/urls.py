@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from workshop.main_view import GameListView, AllGamesListView,SearchListView
 
@@ -28,3 +30,7 @@ urlpatterns = [
     url(r'^games/', include('gamelist.urls', namespace="my_list")),
     url(r'^game/', include('game.urls', namespace="game")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT)

@@ -36,19 +36,45 @@ class UserSignUpForm(UserCreationForm):
         fields = ('username','first_name','last_name','email','password1','password2')
         model = get_user_model()
 
-        def __init__( self, *args, **kwargs ):
-            super().__init__(*args , **kwargs)
-            self.fields['username'].widget.attrs['class'] = 'input-field'
-            self.fields['first_name'].widget.attrs['class'] = 'input-field'
-            self.fields['last_name'].widget.attrs['class'] = 'input-field'
-            self.fields['email'].widget.attrs['class'] = 'input-field'
-            self.fields['password1'].widget.attrs['class'] = 'input-field'
-            self.fields['password2'].widget.attrs['class'] = 'input-field'
+    def __init__(self, *args, **kwargs):
+        super(UserSignUpForm, self).__init__(*args, **kwargs)
 
-            self.fields['username'].label = 'username'
-            self.fields['first_name'].label = 'first name'
-            self.fields['last_name'].label = 'last name'
-            self.fields['email'].label = 'email'
-            self.fields['password1'].label = 'password'
-            self.fields['password1'].label = 'Confirm password'
+        self.fields['username'].label = 'username'
+        self.fields['first_name'].label = 'first name'
+        self.fields['last_name'].label = 'last name'
+        self.fields['email'].label = 'email'
+        self.fields['password1'].label = 'password'
+        self.fields['password1'].label = 'Confirm password'
+
+        self.fields['username'].widget = forms.TextInput(attrs= {
+            'placeholder':'username',
+            'class':'form-control'
+        })
+
+        self.fields['first_name'].widget = forms.TextInput(attrs= {
+            'placeholder':'first name',
+            'class':'form-control'
+        })
+
+        self.fields['last_name'].widget = forms.TextInput(attrs= {
+            'placeholder':'last name',
+            'class':'form-control'
+        })
+
+        self.fields['email'].widget = forms.EmailInput(attrs= {
+            'placeholder':'email address',
+            'class':'form-control'
+        })
+
+        self.fields['password1'].widget = forms.PasswordInput(attrs= {
+            'placeholder':'password',
+            'class':'form-control'
+        })
+
+        self.fields['password2'].widget = forms.PasswordInput(attrs= {
+            'placeholder':'confirm password',
+            'class':'form-control'
+        })
+
+            
 

@@ -9,7 +9,6 @@ class GameList(models.Model):
     name        = models.CharField(max_length=500)
     description  = models.TextField()
     date_created = models.DateTimeField(default=timezone.now)
-    views        = models.IntegerField(default=0)
     owner        = models.ForeignKey(Member, on_delete=models.CASCADE)
     slug         = models.SlugField()
 

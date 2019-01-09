@@ -26,3 +26,4 @@ static3==0.7.0
 Unipath==1.0
 urllib3==1.22
 whitenoise==3.2
+django-cleanup==3.0.1

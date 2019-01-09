@@ -37,7 +37,7 @@
                 <div class="anonymous-games__game d-flex my-2  flex-column p-2 align-self-start">
                     <h4 class="text-dark text-left"><a class="text-dark" href="{% url 'game:game_detail' pk=game.pk %}">{{game.title}}</a></h4>
                     {% load static %}
-                    <img src="{% static 'games/g.jpg' %}" alt="">
+                    <img src="{{game.image_cover.url}}" alt="">
                     <span class="mt-1 mb-1 text-left p-2 pr-2" style="font-size:15px;color:#333;line-height:1.3rem;">{{game.description|truncatechars:110|safe}}</span>
                     <div class="anonymous-games__game--body d-flex flex-row border-top pt-1">
                         <span class="mr-auto" style="font-size:12px;">{{game.views}} views</span>

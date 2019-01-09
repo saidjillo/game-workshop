@@ -37,7 +37,7 @@
               <span class="navbar-toggler-icon"></span>
             </button>
           
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse container" id="navbarSupportedContent">
 
                 <!-- form -->
                 <form action="{% url 'search' %}" method="GET" class="ml-5 my-lg-0 mr-auto w-50 gm-search">
@@ -55,7 +55,7 @@
               
              
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle gameshopdropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if user.is_authenticated %}
                         {{user.username}}
                         {% else %}

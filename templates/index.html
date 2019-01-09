@@ -8,7 +8,7 @@
                     {% for g in games|slice:"12" %}
                         {% load static %}
                         <a class="home-g d-flex justify-content-center ml-2 my-2" href="{% url 'game:game_detail' pk=g.pk %}">
-                            <img  src="{% static 'games/g.jpg' %}" title="{{g.title}}" class="my-1" alt="{{g.title}}"> 
+                            <img  src="{{g.image_cover.url}}" title="{{g.title}}" class="my-1" alt="{{g.title}}"> 
                         </a>                                    
                     {% endfor %}
                 </div>
@@ -25,12 +25,12 @@
                                         {% for g in collection.game.all|slice:"3" %}
                                         <div class="data ml-2">
                                             {% load static %}
-                                            <img src="{% static 'games/g.jpg' %}" class="my-2" alt="">
+                                            <img src="{{g.image_cover.url}}" class="my-2" alt="">
                                             <div class="collection-body--games__metadata ml-2">
                                                 <a style="text-decoration:none;" href="{% url 'game:game_detail' pk=g.pk %}"><span class="text-primary vt-align"> {{g.title}}</span></a> 
                                                 <div class="views">
-                                                    <span class="views" style="font-size:14px;"> {{g.date_uploaded}}</span>
-                                                    <span> {{g.views}}</span>
+                                                    <span class="views" style="font-size:14px;"> {{g.date_uploaded|timesince}}</span>
+                                                    <span> {{g.hitcounts.count}} views</span>
                                                 </div>
                                             </div>
                                         </div>                                
@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="collection-body--meta"> 
                                         <span>created by | {{collection.owner.user.username}}</span>
-                                        <span class="text-muted">->{{collection.date_created}}</span>
+                                        <span class="text-muted">->{{collection.date_created|timesince}}</span>
                                     </div>
                                 </div>
                             </div>

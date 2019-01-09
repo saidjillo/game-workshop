@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from itertools import chain
@@ -7,7 +7,7 @@ from itertools import chain
 from django.views.generic import ListView
 
 from gamelist.models import GameList
-from game.models import Game
+from game.models import Game, Ratings
 
 # main view starts here
 class GameListView(ListView):
@@ -58,6 +58,12 @@ class SearchListView(ListView):
             reverse=True)
 
         return context
+
+
+
+
+    
+    
     
  
 

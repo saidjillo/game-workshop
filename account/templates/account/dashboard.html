@@ -38,7 +38,7 @@
                                     <div class="card-body">
                                       <h5 class="card-title">{{list.name}}</h5>
                                       <h6 class="card-subtitle mb-2 text-muted">{{list.game.all.count}} games</h6>                                     
-                                      <h6 class="card-subtitle mb-2 text-muted" style="font-size:13px; font-weight:lighter">{{list.date_created}}</h6>                                     
+                                      <h6 class="card-subtitle mb-2 text-muted" style="font-size:13px; font-weight:lighter">{{list.date_created|timesince}}</h6>                                     
                                       <p class="card-text">{{list.description|truncatechars:120}}</p>
                                       <hr>
                                       <a href="{% url 'list:list_detail' pk=list.pk %}" class="btn btn-outline-secondary">Read More</a>
@@ -51,13 +51,13 @@
                                     {% for game in list.game.all %}
                                     <div class="card" style="width: 15rem;">
                                         {% load static %}
-                                          <img class="card-img-top" src="{% static 'games/g.jpg' %}" alt="Card image cap">
+                                          <img class="card-img-top" src="{{game.image_cover.url}}" alt="Card image cap">
                                           <div class="card-body cb">
                                             <h5 class="card-title">{{game.title}}</h5>
                                             <p class="card-text">{{game.description|truncatechars:120}}</p>
                                             <div class="g-meta">
                                                 <hr>
-                                                <h6 class="card-subtitle mb-2 text-light" style="font-size:13px; font-weight:lighter">Jan. 2, 2019, 11:58 a.m.</h6>
+                                                <h6 class="card-subtitle mb-2 text-light" style="font-size:13px; font-weight:lighter">{{game.date_uploaded|timesince}}</h6>
                                                 <a href="{% url 'game:game_detail' pk=game.pk %}" class="btn btn-outline-light">View</a>
                                             </div>
                                           </div>

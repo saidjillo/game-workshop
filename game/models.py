@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify
 
 from gamelist.models import GameList
+from account.models import Member
 
 # Create your models here.
 class Game(models.Model):
@@ -11,7 +12,7 @@ class Game(models.Model):
     description    = models.TextField()
     game_developer = models.CharField(max_length=150)
     url            = models.URLField()
-    image_cover    = models.ImageField(upload_to="games")
+    image_cover    = models.ImageField(upload_to="images/%Y/%m/%d")
     date_uploaded  = models.DateTimeField(default=timezone.now)
     slug           = models.SlugField()
     views          = models.IntegerField(default=0)
@@ -27,10 +28,24 @@ class Game(models.Model):
         return __class__.__name__
 
 
+class HitCount(models.Model):
+    game      = models.ForeignKey(Game, related_name="hitcounts", on_delete=models.CASCADE)
+    hits      = models.PositiveIntegerField(default=0)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.game.title
+
+    def increase_hit(self):
+        self.hits += 1
+        self.save()
+
+
 
 class Ratings(models.Model):
     stars  = models.IntegerField()
     game   = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="stars")
+    user   = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='users')
 
     def __str__(self):
         return f'{self.game.title} stars => {self.stars}'

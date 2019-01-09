@@ -9,7 +9,7 @@ from game.forms import GameCreationForm
 from gamelist.models import GameList
 from django.contrib.auth.models import User
 from account.models import Member
-from game.models import Game
+from game.models import Game, HitCount
 
 # Create your views here.
 class GameCreateView(FormView):
@@ -77,8 +77,20 @@ class GameDetailView(UpdateView,DetailView):
  
         context['related_games'] = Game.objects.filter(title__icontains=first_letter)[:8]
 
+        game = self.get_object()
+        hit = HitCount.objects.create(
+            game=game
+        )
+        hit.increase_hit()
+
+        print('========================')
+        print(game.image_cover.url)
+        print('========================')
+
         return context
 
+   
+        
     def get_success_url(self):
         return reverse_lazy('game:game_detail', kwargs={'pk':self.get_object().pk})
 
@@ -110,3 +122,24 @@ def game_add_form_view(request, game_list_pk):
         return render(request, 'game/game_form.html' , {'gamelist':gamelist,'game_form':game_form})
     else:
         return redirect('list:list_create')
+
+
+# def rate_game(request, pk):
+#     if request.method == 'GET':
+#         return HttpResponse(status=500)
+    
+#     if request.method == 'POST':
+#         user = request.user
+    
+#     if not user.is_authenticated:
+#         return JsonResponse({'error':'UnAuthorized request'})
+
+#     if Game.objects.get(pk=pk).exists():
+#         rate = Ratings.objects.create(
+#             user = Member.objects.get(pk=pk),
+#             game = Game.objects.get(pk=pk),
+#             stars= 
+#         )
+           
+#     else:
+#         return HttpResponse(status=500)

@@ -104,7 +104,7 @@
     align-items: center;
 }
 
-#gameshopdropdown {
+.gameshopdropdown {
     display: flex;
     justify-content: center;
     align-items: center;

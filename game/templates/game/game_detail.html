@@ -12,11 +12,11 @@
                 {% for game in related_games %}
                 <div class="related-games--container my-3 border-bottom">
                         {% load static %}
-                        <img src="{% static 'games/g.jpg' %}" alt="" class="related-games__img">
+                        <img src="{{game.image_cover.url}}" alt="" class="related-games__img">
                         <div class="related-games__body">
                             <h5 class="text-dark ml-1">{{game.title}}</h5>
                             <span class="ml-1"><a href="{% url 'game:game_detail' pk=game.pk %}">{{game.description|truncatechars:35}}</a></span>
-                            <span class="ml-1"><small class="text-muted">by : </small><small class="text-primary">{{game.date_uploaded}}</small></span>
+                            <span class="ml-1"><small class="text-muted">by : </small><small class="text-primary">{{game.date_uploaded|timesince}}</small></span>
                         </div>
                     </div>
                 {% endfor %}       
@@ -25,8 +25,8 @@
         <div class="col-md-6">
             <!-- game workshop -->
             <div class="workshop-game">
-                {% load static %}
-                <img src="{% static 'games/g.jpg' %}" alt="" class="workshop-game__img">
+                
+                <img src="{{game.image_cover.url}}" alt="{{game.title}}" class="workshop-game__img">
                 <div class="workshop-game__body">
                     <h1 class="workshop-game__body--header">{{game.title}}</h1>
                     <div class="workshop-game__body--contents">
@@ -37,7 +37,11 @@
                         </span>
                         <span class="workshop-game__body--contents-date">
                             <strong class="text-muted">Created :</strong>
-                            <small class="text-muted">{{game.date_uploaded}}</small>
+                            <small class="text-muted">{{game.date_uploaded|timesince}}</small>
+                        </span>
+                        <span class="workshop-game__body--contents-date">
+                            <strong class="text-muted">views :</strong>
+                            <small class="text-muted">{{game.hitcounts.count}}</small>
                         </span>
                     </div>
                 </div>
@@ -104,7 +108,7 @@
                     {% for game in game_list.game.all %}
                     <li class="list-item ml-5 my-3" style="line-height:1;">
                         <a href="{% url 'game:game_detail' pk=game.pk %}" class="" style="color: #70579D;display:block">{{game.title}}</a>
-                        <span class="text-muted" style="font-weight:lighter;font-size:13px;">{{game.date_uploaded}}</span>
+                        <span class="text-muted" style="font-weight:lighter;font-size:13px;">{{game.date_uploaded|timesince}}</span>
                     </li>
                     {% endfor %}
                 </ul>
