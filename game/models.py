@@ -45,7 +45,6 @@ class HitCount(models.Model):
 class Ratings(models.Model):
     stars  = models.IntegerField()
     game   = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="stars")
-    user   = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='users')
-
+  
     def __str__(self):
         return f'{self.game.title} stars => {self.stars}'
