@@ -9,6 +9,11 @@
         Get the games collections you ever wanted
     {% endblock %}</title>
 
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" 
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" 
@@ -21,6 +26,20 @@
 
     <!-- custom css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'community/forum.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'account/profile.css' %}">
+
+    <!-- custom js -->
+    <script src="{% static 'community/js/community.js' %}"></script>
+
+    <!-- lightbox -->
+    <link rel="stylesheet" href="{% static 'lightbox/css/lightbox.css' %}">
+
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static 'slick/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'slick/slick-theme.css' %}">
+
 </head>
 <body>
 
@@ -33,11 +52,11 @@
                 <span class="brand-inf">Game</span>
                 <span class="inf-text">Workshop</span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#ourGameshopNavbar" aria-controls="ourGameshopNavbar" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           
-            <div class="collapse navbar-collapse container" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="ourGameshopNavbar">
 
                 <!-- form -->
                 <form action="{% url 'search' %}" method="GET" class="ml-5 my-lg-0 mr-auto w-50 gm-search">
@@ -51,11 +70,12 @@
                 </form>
                 <!-- form -->
 
-              <ul class="navbar-nav mr-auto">
-              
-             
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle gameshopdropdown" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <ul class="navbar-nav d-flex flex-row justify-content-around container">
+                 <li class="nav-item m-1">
+                    <a class="nav-link text-light text-center" href="{% url 'community:all_forums' %}">Forums</a>
+                 </li>         
+                <li class="nav-item dropdown m-1">
+                  <a class="nav-link dropdown-toggle gameshopdropdown text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if user.is_authenticated %}
                         {{user.username}}
                         {% else %}
@@ -123,8 +143,8 @@
 
 
     
-    <div class="container my-2">
-        <ul class="nav justify-content-left">
+    <div class="container my-2 d-flex justify-content-between">
+        <ul class="nav justify-content-left mr-auto">
             <li class="nav-item">
               <a class="nav-link linker" href="{% url 'all_games' %}">Games</a>
             </li>
@@ -132,14 +152,20 @@
               <a class="nav-link linker" href="{% url 'home' %}">Collections</a>
             </li>
         </ul>
-        <hr>
+
+        <div class="header-metas d-flex justify-content-end align-items-center">
+            <a href="{% url 'blog:blogs' %}" class="text-muted" style="text-decoration:none;">Explore</a>
+            <span class="text-muted d-none">&nbsp;Join now &nbsp;|</span>
+            <span class="text-muted d-none">&nbsp;{% now "jS F Y" %}</span>
+        </div>
+
     </div>
 
         {% block content %}
         {% endblock %}
    <footer class="container-fluid bg-dark text-light">
        <div class="container">
-            <div class="row">
+            <div class="row">      
                 <div class="col-md-4 p-3">
                     <h3 class="text-light">GameWorkshop</h3>
                     <p class="text-light">We use our online database to store information related to games, articles , information about games , developer and when they were released.</p>
@@ -147,8 +173,8 @@
                 <div class="col-md-4 p-3">
                     <h3 class="text-light ml-3">Resources</h3>
                     <nav class="nav flex-column ml-3">
-                        <a class="nav-link text-light" href="#">Games</a>
-                        <a class="nav-link text-light" href="#">Collections</a>
+                        <a class="nav-link text-light" href="{% url 'all_games' %}">Games</a>
+                        <a class="nav-link text-light" href="{% url 'home' %}">Collections</a>
                     </nav>
                 </div>    
                 <div class="col-md-4 p-3">
@@ -161,13 +187,21 @@
                 </div>   
             </div> 
             <hr class="border">
-            <div class="row">
-       <!--Copyright-->
-       <p class="text-center text-md-left">© 2018 Copyright:
-            <a href="{% url 'home' %}">
-              <strong> gameworkshop.com</strong>
-            </a>
-          </p>
+            <div class="row justify-content-between">
+                <!--Copyright-->
+                <p class="text-center text-md-left">© 2018 Copyright:
+                        <a href="{% url 'home' %}">
+                        <strong> gameworkshop.com</strong>
+                        </a>
+                </p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="U8BAD525MF4KJ" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_KE/i/scr/pixel.gif" width="1" height="1" />
+                </form>
+                    
+                    
           
             </div>
        </div>
@@ -175,15 +209,55 @@
 
 
 
+
     <!-- scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
-            crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" 
             integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" 
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" 
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" 
             crossorigin="anonymous"></script>
+
+    <!-- lightbox -->
+    <script src="{% static 'lightbox/js/lightbox.js' %}"></script>
+    <script src="{% static 'slick/slick.min.js' %}"></script>
+            <script type="text/javascript">
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                  });
+
+                  $(document).ready(function(){
+                    $('.blog-slider').slick({
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 2000,
+                        prevArrow:'.prev-b',
+                        nextArrow:'.next-b',
+                        dots:true,
+                        responsive:[
+                        {
+                            breakpoint: 600,
+                            settings: {
+                              slidesToShow: 2,
+                              slidesToScroll: 2
+                            }
+                        },
+                          {
+                              breakpoint:480,
+                              settings: {
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                              }
+                          }
+                        ]
+                    });
+                  });
+            </script>
+
 </body>
 </html>

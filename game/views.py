@@ -46,7 +46,7 @@ class GameCreateView(FormView):
             self.pk = game.pk
             return super(GameCreateView, self).form_valid(form)
         else:
-            HttpResponse(status=500)
+            return HttpResponse(status=500)
 
     def get_success_url(self):
 

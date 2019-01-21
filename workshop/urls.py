@@ -19,7 +19,8 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from workshop.main_view import GameListView, AllGamesListView,SearchListView
+from workshop.main_view import GameListView, AllGamesListView,SearchListView,confirmation,validation, register_url
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,8 +28,18 @@ urlpatterns = [
     url(r'^games/game/all/$', AllGamesListView.as_view(), name="all_games"),
     url(r'^search/$', SearchListView.as_view(), name="search"),
     url(r'account/', include('account.urls', namespace="account")),
-    url(r'^games/', include('gamelist.urls', namespace="my_list")),
+    url(r'^games/', include('gamelist.urls', namespace="my_list")), 
     url(r'^game/', include('game.urls', namespace="game")),
+    url(r'^community/', include('community.urls', namespace="community")),
+    url(r'^blog/', include('blog.urls', namespace="blog")),
+
+
+    url(r'^confirmation/', confirmation, name="confirmation"),
+    url(r'^validation_url/', validation, name="validation_url"),
+    url(r'^register_url/', register_url, name="register_url"),
+    path('summernote/', include('django_summernote.urls')),
+  
+
 ]
 
 if  settings.DEBUG:

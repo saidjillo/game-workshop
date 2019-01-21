@@ -7,7 +7,7 @@ from gamelist.models import GameList
 
 # Create your models here.
 class Game(models.Model):
-    title          = models.CharField(max_length=250)
+    title          = models.CharField(max_length=251)
     description    = models.TextField()
     game_developer = models.CharField(max_length=150)
     url            = models.URLField()

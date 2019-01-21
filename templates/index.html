@@ -2,20 +2,20 @@
 
 {% block content %}
 <div class="container">
-        <div class="row">
-            <div class="col-md-3 align-self-start">
+        <div class="row home-media-md">
+            <div class="col-md-4 align-self-start order-2 row-home">
                 <div class="game-holder d-flex justify-content-start flex-wrap">
                     {% for g in games|slice:"12" %}
-                        {% load static %}
-                        <a class="home-g d-flex justify-content-center ml-2 my-2" href="{% url 'game:game_detail' pk=g.pk %}">
-                            <img  src="{{g.image_cover.url}}" title="{{g.title}}" class="my-1" alt="{{g.title}}"> 
+                        <a  data-toggle="tooltip" data-placement="top" 
+                            data-html="true"  title="<h5>{{g.title}}</h5>" class="home-g d-flex justify-content-center ml-2 my-2 m-2" href="{% url 'game:game_detail' pk=g.pk %}">
+                            <img  src="{{g.image_cover.url}}"  class="my-1 " alt="{{g.title}}"> 
                         </a>                                    
                     {% endfor %}
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8 order-md-2 order-1 home-9">
                 {% for collection in all_game_list %}
-                    <div class="col-md-12 mb-1">
+                    <div class="col-md-12 mb-1 mb-">
                         <div class="collection">
                             <div class="collection-body">
                                 <h3 class="ml-2"><a class="text-dark" href="{% url 'list:list_detail' pk=collection.pk %}">{{collection.name}}</a></h3>
@@ -37,7 +37,7 @@
                                         {% endfor %}
                                     </div>
                                     <div class="collection-body--meta"> 
-                                        <span>created by | {{collection.owner.user.username}}</span>
+                                        <span>created by | <a style="text-decoration:none;" href="{% url 'account:profile' username=collection.owner.user.username %}">{{collection.owner.user.username}}</a></span>
                                         <span class="text-muted">->{{collection.date_created|timesince}}</span>
                                     </div>
                                 </div>
@@ -47,8 +47,8 @@
                     </div>
                 {% endfor %}
                 <!-- pagination starts -->
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
+                <nav class="container" aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-start justify-content-md-end">
                         {% if all_game_list.has_previous %}
                         <li class="page-item">
                             <a class="page-link" href="?page={{ all_game_list.previous_page_number}}" tabindex="-1">Previous</a>
@@ -67,9 +67,6 @@
                         </li>
                         {% endif %}
                      
-                        <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
          
                     </ul>
                 </nav>

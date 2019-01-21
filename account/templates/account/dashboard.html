@@ -7,21 +7,23 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <div class="dashboard">
-                <h3 class="p-1 ml-3">Dashboard</h3>
-                <hr>
-                <div class="user-cred">
-                    <i class="fas fa-user ml-5"></i>
-                    <span class="text-dark" style="margin-left:3%; font-weight:bolder">{{user.username}}</span>
+        <div class="col-md-3 mb-3">
+            <div class="dashboard p-2">
+                <h3 class="ml-3">Dashboard</h3>
+                <div class="list-group-flush">
+                    <div class="user-cred list-group-item">
+                        <i class="fas fa-user"></i>
+                        <span class="text-dark" style="margin-left:3%; font-weight:bolder">{{user.username}}</span>
+                    </div>
+
+                    <a class="list-group-item text-dark" style="text-decoration:none;" href="{% url 'list:list_create' %}"> <i class="fas fa-folder-plus"></i> Collections</a>
+                    <a style="text-decoration:none;" href="{% url 'account:profile' username=user.username %}" class="view_profile text-dark pl-0  list-group-item"><i class="fas fa-cogs"></i> profile</a>
                 </div>
-                <br />
-                <hr>   
-                <h4><a class="adding p-3" href="{% url 'list:list_create' %}"><span style="font-weight:bolder">+</span> Add Game Collections</a></h4>
+               
             </div>
         </div>
         <div class="col-md-9">
-                <div class="row">
+                <div class="row mb-3">
                         <div class="col-xs-12 container-fluid">
                           <nav>
                             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -32,9 +34,9 @@
                             </div>
                           </nav>
                           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
-                            <div class="tab-pane fade show active card-columns pl-3 py-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="card-smaller__holder tab-pane fade show active card-columns pl-3 py-3" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                               {% for list in game_lists %}
-                                <div class="card" style="width: 15rem;">
+                                <div class="card card-smaller" style="width: 15rem;">
                                     <div class="card-body">
                                       <h5 class="card-title">{{list.name}}</h5>
                                       <h6 class="card-subtitle mb-2 text-muted">{{list.game.all.count}} games</h6>                                     

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Games Community Forums | gameworkshop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb bg-info">
+            <span class="breadcrumb-item active">Forums</span>
+    </nav>
+    <!-- breadcrumb -->
+    
+    <!-- row -->
+    <div class="row">
+
+        <!-- col-8 -->
+        <div class="col-8 mb-3">
+            {% for forum in forums %}
+            <div class="community-groups d-flex justify-content-between my-2 border-bottom p-2">
+                <div class="forum-header d-flex justify-content-start flex-column">
+                    <h4 style="font-size: 18px;"><a style="color: #00398f;text-decoration: none;font-weight: bolder;" href="{% url 'community:forum' pk=forum.pk %}" class="align-self-start" >{{forum.topic}}</a></h4>
+                    <div style="line-height:11px;" class="more-forum-info align-self-start ml-1">
+                        <span><small class="text-muted">posts</small> <small style="font-size: 11px;">{{forum.posts.all.count}}</small></span>
+                    </div>
+                </div>
+                {% for post in forum.posts.all|slice:":1"%}
+                    <div style="background:#d8d8d8;" class="latest-post mb-2 p-2">
+                        <span>{{post.post|truncatechars:"80"}}</span>
+                        <div class="the-timestamp d-flex justify-content-between">
+                            <a style="text-decoration:none;" href="{% url 'account:profile' username=post.post_owner.user.username %}" style="color: #007cae;font-weight: 400;">{{post.post_owner.user.username}}</a>
+                            <span class="text-muted">{{post.date_posted|timesince}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+        <!-- col-8 -->
+
+        <!-- col-4 -->
+        <div class="col-4">
+
+        </div>
+        <!-- col-4 -->
+
+    </div>
+    <!-- row -->
+
+</div>
+{% endblock %}

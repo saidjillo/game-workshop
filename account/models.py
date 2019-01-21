@@ -14,7 +14,9 @@ class Member(models.Model):
         from django.core.urlresolvers import reverse
         return reverse('home', kwargs={'pk': self.pk})
 
-    user =models.OneToOneField(User, on_delete=models.CASCADE)
+    user =models.OneToOneField(User,related_name="member", on_delete=models.CASCADE)
+    proffession = models.TextField(blank=True, null=True, default="works at gameworkshop")
+    pic  = models.ImageField(upload_to="account/%Y/%m/%d", default="/account/image_placeholder.jpg")
 
 
 def create_member(sender,**kwargs):

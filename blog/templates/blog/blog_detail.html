@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}{{object}}{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <!-- row -->
+    <div class="row mb-3">
+
+        <div class="col-md-8 my-3">
+            <div class="blogs">
+
+                <div class="blog-group border-bottom py-3">
+                    <div class="writer-info d-flex justify-content-start">
+                        <img src="{{blog.writer.member.pic.url}}" alt="">
+                        <div class="writer-names d-flex flex-column justify-content-start ml-2">
+                            <a style="color: #00398f;text-decoration: none;font-weight: bolder;" href="{% url 'account:profile' username=blog.writer.username %}">{{blog.writer.username}}</a>
+                            <span class="text-muted">{{blog.writer.member.proffession|truncatechars:"80"}}</span>
+                        </div>
+                    </div>
+                    <div class="blog-titles ml-4 my-2">
+                        <h3>{{blog.title}}</h3>
+                        <span class="text-muted">Published {{blog.date_created|timesince}}</span>
+                    </div>
+                    <div class="blog-contents d-flex flex-column justify-content-start">
+                        <img style="height:323px;" class="d-block w-100" src="{{blog.image.url}}" alt="First slide">
+
+    
+
+                        <div class="blog-contents--body p-3">
+                            <p>{{blog.content|safe}}</p>
+                        </div>
+                        <div class="blog-metadata d-flex justify-content-around">
+                            <div class="blog-social-sharing d-flex justify-content-between">
+                                <i class="fab fa-google-plus ml-2"></i>
+                                <i class="fab fa-twitter ml-2"></i>
+                                <i class="fab fa-facebook-square ml-2"></i>
+                                <i class="fab fa-linkedin ml-2"></i>
+                            </div>
+
+                            <span class="blog-views text-muted"><i class="fas fa-eye"></i> 1500 views</span>
+                        </div>
+                    </div>
+                </div>
+           
+
+            </div>
+        </div>
+
+        <!-- .col-4 -->
+        <div class="col-md-4 my-3">
+         <div class="myblog-cover--img">
+             {% for img in blog.medias.all %}
+             <a href="{{img.image_one.url}}" data-title="{{object}}" data-lightbox="roadtrip">
+                <img src="{{img.image_one.url}}" style="width:100%; height:250px;" alt="">
+             </a>
+             <div class="other--imgs d-flex justify-content-between">
+
+                 <a href="{{img.image_two.url}}" data-title="{{object}}" data-lightbox="roadtrip" class="img-one p-1 w-50">
+                    <img src="{{img.image_two.url}}"  class="w-100" style="height:200px; border:2px solid teal;" alt="">
+                 </a>
+                 
+                 <a href="{{img.image_three.url}}" data-title="{{object}}" data-lightbox="roadtrip" class="img-two p-1 w-50">
+                    <img src="{{img.image_three.url}}" class="w-100" style="height:200px; border:2px solid teal;" alt="">
+                 </a>
+                
+             </div>
+             {% endfor %}
+         </div>
+
+         <h5 class="mt-3">TRENDING</h5>
+         <hr>
+         <div class="top-stories">
+
+            {% for forum in forums %}
+            <div style="background:#d8d8d8;" class="top-stories--group d-flex flex-column p-3 my-2">
+               <a href="{% url 'community:forum' pk=forum.pk  %}">{{forum.topic}} </a>
+               <div class="story-metadata d-flex justify-content-start">
+                   <span><i class="far fa-clock text-muted"></i> <i class="text-muted">{{forum.date_created|timesince}}</i></span>
+                   <span class="blog-views text-muted ml-3"><i class="fas fa-eye"></i> 1500 views</span>
+               </div>
+            </div>
+            {% endfor %}
+
+         </div>
+
+        </div>
+        <!-- .col-4 -->
+
+    </div>
+    <!-- row -->
+
+    <!-- .row -->
+    <div class="row">
+        <div class="col-10 offset-1">
+
+            <div class="blog-paginator d-flex justify-content-between">
+                <div class="all-blogslides d-flex justify-content-center">
+                   <span class="p-2 text-light">Relates Stories</span> 
+                </div>
+                <div class="all-blogslides d-flex">
+                    <div class="b-navigator p-2 prev-b" style="background:#d8d8d8;cursor:pointer;">
+                        <i class="fas fa-angle-left"></i>
+                    </div>
+                    <span class="p-2 text-light">20 items</span> 
+                    <div class="b-navigator p-2 next-b" style="background:#d8d8d8;cursor:pointer;">
+                        <i class="fas fa-angle-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-slider pb-2">
+ 
+            {% for blog in blogs %}
+                <div class="blog-slider--group m-2" style="width:18rem;">
+                    <hr style="border:2px solid black;">
+                    <img src="{{blog.image.url}}" class="w-100" alt="">
+                    <hr style="border:2px solid black;">
+                    <a href="{% url 'blog:blog_detail' pk=blog.pk slug=blog.slug %}">{{blog.title|truncatechars:"50"}}</a>
+                </div>
+            {% endfor %}
+            </div>
+
+
+        </div>
+
+
+        
+
+
+    </div>
+    <!-- .row -->
+
+
+</div>
+{% endblock %}

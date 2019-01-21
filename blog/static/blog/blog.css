@@ -1,0 +1,84 @@
+.writer-info img {
+    width:50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.blog-contents img {
+    width:100%;
+}
+
+.quick-title {
+    position: absolute;
+    top:15%;
+    left:5%;
+    font-weight: bolder;
+}
+
+.story-metadata {
+    font-weight: lighter;
+    font-size: 14px;
+}
+
+.top-stories--group {
+    border-radius: 5px;
+}
+
+.top-stories--group a {
+    font-weight: bolder;
+    color: #00398f;
+    text-decoration: underline;
+}
+
+.blog-tabs {
+  color:white;
+} 
+
+.blog-tabs a {
+    color: white;
+    background: #314755;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #26a0da, #314755);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+
+.blog_gemx  {
+
+    line-height: 18px;
+  
+}
+
+.favourites {
+    line-height: 20px;
+}
+
+.favourites a{
+    font-family: "Escrow Condensed", georgia, times, "\30E1\30A4\30EA\30AA", "Meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 Pro W3", "Hiragino Kaku Gothic Pro", "\FF2D\FF33\FF30\30B4\30B7\30C3\30AF", "MS PGothic", serif;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+}
+
+.blog_gemx a {
+    font-family: "Exchange", georgia, times, "\30E1\30A4\30EA\30AA", "Meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 Pro W3", "Hiragino Kaku Gothic Pro", "\FF2D\FF33\FF30\30B4\30B7\30C3\30AF", "MS PGothic", serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+}
+
+.blog-slider--group a {
+    font-family: "Escrow Condensed", georgia, times, "\30E1\30A4\30EA\30AA", "Meiryo", "\30D2\30E9\30AE\30CE\89D2\30B4 Pro W3", "Hiragino Kaku Gothic Pro", "\FF2D\FF33\FF30\30B4\30B7\30C3\30AF", "MS PGothic", serif;
+    font-weight: 700;
+    color: #333;
+    font-size: 18px;
+    line-height: 20px;
+    text-decoration: none;
+}
+.blog-paginator {
+    border-bottom: 3px solid teal;
+}
+
+.all-blogslides {
+background: teal;
+}

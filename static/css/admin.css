@@ -1,0 +1,38 @@
+#header {
+    height: 50px;
+    background: teal;
+    color: white;
+}
+
+#branding h1 {
+    color: white;
+}
+
+a:link,
+a:visited {
+    color:teal;
+}
+
+div.breadcrumbs {
+  background: #00b3b3;
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #00b3b3;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: teal;
+}
+
+.semi-div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: -4%;
+}
+.semi-div img {
+    height:100%;
+    align-self: flex-start;
+    height:80px;
+}

@@ -40,12 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_cleanup.apps.CleanupConfig',
+    'django_summernote',
 
     'game',
     'gamelist',
-    'account'
+    'account',
+    'community',
+    'blog',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
 ]
 
 ROOT_URLCONF = 'workshop.urls'
@@ -70,6 +76,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social_django.context_processors.backends',
+              
+
+
             ],
         },
     },
@@ -77,17 +88,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'workshop.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+
+    'django.contrib.auth.backends.ModelBackend',
+
+)
+
+
+
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+      'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gameworkshop',
+        'USER':'postgres',
+        'PASSWORD': 'benora90',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 # DATABASES['default'] = dj_database_url.config()
+
+
 
 
 # Password validation
@@ -136,4 +161,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'community/static'),
+    os.path.join(BASE_DIR, 'blog/static'),
+    os.path.join(BASE_DIR, 'account/static'),
 )

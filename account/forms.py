@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
+from account.models import Member
 
 from django import forms
 
@@ -9,9 +10,6 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput(
                                 attrs={'class': 'form-control','name': 'password'}))
     honeypot = forms.CharField(required=False,widget=forms.HiddenInput,label="Leave empty")
-
-
-
 
 
     def clean_honeypot(self):
@@ -75,6 +73,51 @@ class UserSignUpForm(UserCreationForm):
             'placeholder':'confirm password',
             'class':'form-control'
         })
+
+
+class ProfileForm(forms.Form):
+    """
+    Form for user to update their own profile details
+    """ 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'] = forms.CharField(
+                                        max_length=30,
+                                        initial = self.user.first_name,
+                                        widget=forms.TextInput(attrs={
+                                            'placeholder': 'First Name',
+                                            'class':'form-control','name':'first_name',
+                                        }))
+        self.fields['last_name'] = forms.CharField(
+                                        max_length=30,
+                                        initial = self.user.last_name,
+                                        widget=forms.TextInput(attrs={
+                                            'placeholder': 'Last Name',
+                                            'class':'form-control','name':'last_name',
+                                        }))
+
+
+class PictureForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ['proffession','pic']
+
+    def __init__(self, *args, **kwargs):
+        super(PictureForm, self).__init__(*args, **kwargs)
+    
+        self.fields['proffession'].widget = forms.Textarea(attrs= {
+            'class':'form-control',
+            'placeholder':'Brief description of your proffession',
+            'required':False
+        })
+
+        self.fields['pic'].widget =  forms.FileInput(attrs= {
+            'class':'form-control',
+            'required':False
+        })
+
 
             
 

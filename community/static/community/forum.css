@@ -1,0 +1,42 @@
+.fg {
+    box-shadow: 4px 4px 2px 4px gray;
+}
+
+.topic-box a {
+    font-size: 14px;
+}
+
+.posterz span {
+    font-size: 11px;
+    opacity: .75;
+}
+
+.form-enter {
+    display: none;
+}
+
+.show-reply_div {
+    display:block;
+}
+ 
+.all-post-replies {
+    list-style-type: none;
+}
+
+.all-post-replies li {
+    margin: 10px;
+}
+
+.replier-date {
+    font-size: 0.8em;
+}
+
+.form-header h4 {
+    font-size: 18px;
+}
+
+.form-header h4 a{
+    color: #00398f;
+    text-decoration: none;
+    font-weight: bolder;
+}

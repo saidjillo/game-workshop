@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 order-3">
             <h4>Related games</h4>
             <hr>
             <div class="related-games">
@@ -22,19 +22,26 @@
                 {% endfor %}       
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 order-md-2 order-1">
             <!-- game workshop -->
-            <div class="workshop-game">
+            <div class="workshop-game mb-2">
+                <h1 class="workshop-game__body--header">{{game.title}}</h1>
+                <div class="image-wrapper">
+                    <img src="{{game.image_cover.url}}" 
+                    height="260" width="250"  
+                    style="float: left; margin: 4px 10px 0px 0px;" 
+                    alt="{{game.title}}" class="workshop-game__img">
+                    <p class="workshop-game__body--contents-descr mt-2">{{game.description}}</p>
+                </div>
                 
-                <img src="{{game.image_cover.url}}" alt="{{game.title}}" class="workshop-game__img">
+           
                 <div class="workshop-game__body">
-                    <h1 class="workshop-game__body--header">{{game.title}}</h1>
                     <div class="workshop-game__body--contents">
-                        <span class="workshop-game__body--contents-descr mt-2">{{game.description}}</span>
+                      
                         <span class="workshop-game__body--contents-developer mt-5">
                            <strong class="text-muted">Developer : </strong>
-                           <small class="text-primary">{{game.game_developer}}</small>
-                        </span>
+                           <small class="text-primary">{{game.game_developer}}</small>  
+                        </span> 
                         <span class="workshop-game__body--contents-date">
                             <strong class="text-muted">Created :</strong>
                             <small class="text-muted">{{game.date_uploaded|timesince}}</small>
@@ -47,7 +54,10 @@
                 </div>
                 
             </div>
-            <a href="{{game.url}}" class="btn btn-sm btn-outline-dark mt-3 float-right">Visit website</a>
+            <a href="{{game.url}}" class="btn btn-sm btn-outline-dark mt-3">Visit website</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'community:forum_page' pk=game.pk slug=game.slug %}" class="btn btn-sm btn-outline-dark mt-3">Create forum</a>
+            {% endif %}
             <!-- game workshop -->
             <br />
             <br />
@@ -85,7 +95,7 @@
                     </div>
 
                     <div class="form-row mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-2">
                             <button type="submit" class="btn btn-success btn-block btn-sm">Edit game</button>
                         </div>
                         <div class="col-md-6">
@@ -97,7 +107,7 @@
             {% endif %}
             <!-- is user ends -->
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 order-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'list:list_detail' pk=game_list.pk %}">{{game_list.name}}</a></li>

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block title %} {{forum.topic}} | game forum {% endblock %}
+
+{% block content %}
+<div class="container"> 
+    <input type="hidden" value="{{forum.pk}}" id="forum_pk">
+    <!-- breadcrumb -->
+    <nav class="breadcrumb bg-info">
+        <a class="breadcrumb-item text-light" href="{% url 'community:all_forums' %}">Forums</a>
+        <span class="breadcrumb-item active">{{forum.game.title}}</span>
+    </nav>
+    <!-- breadcrumb -->
+
+    <!-- row -->
+    <div class="row">
+
+        <!-- col-md-8 -->
+        <div class="col col-md-9 mb-3">
+            <h3>{{forum.topic}}</h3>
+            <div class="forum-info">
+                <a style="text-decoration:none;" href="{% url 'account:profile' username=forum.forum_admin.username %}" class="text-muted">{{forum.forum_admin.username}} ,</a>
+                <span class="text-muted">{{forum.date_created|timesince}}</span>
+                <div class="mt-2">
+                    {% for member in forum.member.all %}
+                       <a href="{% url 'account:profile' username=member.user.username %}"><img class="" style="width: 32px;height: 32px;" src="{{member.pic.url}}" alt=""></a> 
+                    {% endfor %}
+                </div>
+            </div>
+            <hr>
+
+            <!-- .forums -->
+            <div class="forums mt-2">
+                {% for post in forum.posts.all %}
+                <div class="forum-group d-flex justify-content-start my-5 p-3 fg">
+                    <img class="align-self-start mt-1" style="width: 32px;height: 32px;" src="{{post.post_owner.pic.url}}" alt="">
+                    <div class="forum-body ml-2 align-self-start">
+                        <h4 class="text-primary d-flex justify-content-between"><a style="text-decoration:none;" href="{% url 'account:profile' username=post.post_owner.user.username %}">{{post.post_owner}}</a><small class="text-muted">{{post.date_posted|timesince}}</small></h4>
+                    
+                        <div class="forum-post my-2 ml-2 ">
+                            {{post.post}}                           
+                            <ul class="all-post-replies p-2 pl-3 p-2 m-3">
+                                {% for p in post.replies.all %}
+                                    <li class="d-flex justify-content-start">
+                                        <img class="align-self-start mt-1" style="width: 32px;height: 32px;" src="{{p.owner.pic.url}}" alt="">
+                                        <div class="replier align-self-start ml-2">
+                                            <a style="text-decoration:none;" href="{% url 'account:profile' username=p.owner.user.username %}" style="color: #007cae;font-weight: 400;">{{p.owner.user.username}}</a>
+                                            <div class="replier-text">
+                                                <span style="opacity: .75; font-size:14px;">{{p.reply}}.</span>
+                                                <div class="replier-date d-flex justify-content-end text-muted">{{p.date_replied}}</div>
+                                            </div>
+                                        </div>     
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="replying d-flex justify-content-start">
+                            <div class="social-sharing mr-auto">
+                                <i class="fab fa-google-plus"></i>
+                                <i class="fab fa-twitter"></i>
+                                <i class="fab fa-facebook-square"></i>
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            {% if user.is_authenticated %}
+                            <div class="badge badge-info pl-3 pr-3 btn-replying" data-ajax-target="{% url 'community:post_reply' %}" style="cursor:pointer;">reply</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-enter">
+                            <input type="hidden" value="{{post.pk}}" class="the-post">
+                            <form class="mt-3" method="POST" enctype="multipart/form-data" onsubmit="return false;">
+                                {% csrf_token %}
+                                <textarea class="form-control" required name="" id="areaReply" cols="30" rows="10"></textarea>
+                                <div class="form-group d-flex justify-content-end col-6 offset-6">
+                                    <input type="submit" class="btn-block btn btn-secondary btn-sm my-3" value="Add reply">
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% if user.is_authenticated %}
+                <hr>
+                <form class="mb-3" action="{% url 'community:post_create' pk=forum.pk %}" method="POST" enctype="multipart/form-data">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <h5 class="text-danger" style="font-size:12px;">{{message}}</h5>
+                        {% endfor %}
+                    {% endif %}
+                    <label for="forumTextArea">contribute to forum</label>
+                    {% csrf_token %}
+                    {{form.post}}
+                    <div class="form-group d-flex justify-content-end">
+                        <input type="submit" class="btn btn-info m-2" value="Contribute">
+                    </div>                 
+                </form>
+                {% endif %}
+            </div>
+            <!-- .forums -->
+
+
+        </div>
+        <!-- col-md-8 -->
+
+        <!-- .col-md-4 -->
+        <div class="col-md-3 mb-3">
+            <h4><i class="far fa-file"></i> Suggested Topics</h4>
+            <hr>
+            <div class="topics">
+                {% for topic in related_topics %}
+                    <div class="topics-groups d-flex justify-content-start">
+                        <img class="align-self-start mt-2" style="width: 32px;height: 32px;" src="{{topic.forum_admin.member.pic.url}}" alt="">
+                        <div class="topic-box ml-2">
+                            <a href="{% url 'community:forum' pk=topic.pk %}" title="{{topic.topic}}">{{topic.topic|truncatechars:"25"}}</a>
+                            <div class="posterz d-flex justify-content-start align-self-start" style="line-height:11px;">
+                                <a style="text-decoration:none;" class="text-muted" href="{% url 'account:profile' username=topic.forum_admin.username %}" style="color: rgb(0,74,149);">{{topic.forum_admin.username}}</span>
+                                <span class="text-muted ml-2">posted {{topic.date_created|timesince}}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- .col-md-4 -->
+
+    </div>
+    <!-- row -->
+
+   
+    
+</div>
+{% endblock %}

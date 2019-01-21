@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}{{user_obj.username}} | gameworkshop{% endblock %}
+
+{% block content %}
+<div class="container-fluid username">
+  <!-- row -->
+  <div class="row">
+      <div class="col-md-10 offset-md-1">
+          <div class="my-username d-flex flex-md-row flex-column justify-content-center">
+              <div class="my-username--image align-self-center align-self-md-start">
+                  <!-- {% ifequal user_obj.member.pic None %} -->
+                  <!-- {% load static %} -->
+                  <!-- <img src="{% static 'games/image_placeholder.jpg' %}" alt="" class="my-username--image__img "> -->
+                  <!-- {% else %}   -->
+                  <img src="{{user_obj.member.pic.url}}" alt="" class="my-username--image__img ">
+                  <!-- {% endifequal %}            -->
+              </div>
+
+              <div class="username_metaz align-self-center align-self-md-start text-center">
+                <small class="text-light">{{user_obj.username}}</small>
+                <h1 class="text-danger w-100">{{user_obj.get_full_name|default:user_obj.username}}</h1>
+                <p class="text-warning">{{user_obj.member.proffession}}</p>
+              </div>
+
+          </div>
+
+      
+      </div>
+  </div>
+  <!-- row -->
+</div>
+
+{% if status %}
+<div class="container">
+      <!-- row -->
+      <div class="contact-image">
+            <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+        </div>
+        <form action="{% url 'account:profile' username=user_obj.username %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ picture_formset.management_form }}
+            <h3>Change Profile here</h3>
+            {% if form.errors %}
+            <span>{{form.errors}}</span>
+            {% endif %}
+           <div class="row">
+                <div class="col-md-6">
+                    
+                    <div class="form-group">
+                        {{ profile_form.first_name }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ profile_form.last_name }}
+                    </div>
+                
+                    <div class="form-group">
+                        {{ picture_formset.0.pic }}
+                    </div>
+                   
+                    <div class="form-group">
+                        <input type="submit" name="btnSubmit" class="btnContact btn btn-sm btn-dark" value="save Changes" />
+                    </div>
+
+                </div>
+                
+          
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ picture_formset.0.proffession }}
+                    </div>
+                </div>
+           
+            </div>
+        </form>
+<!-- row -->
+</div>
+{% endif %}
+{% endblock %}

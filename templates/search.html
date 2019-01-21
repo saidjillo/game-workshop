@@ -37,6 +37,24 @@
                         <span><small class="text-muted">posted  {{result.date_uploaded}}</small>   <small class="text-muted">by</small><i style="color: #212529;" class="ml-2">{{result.game_list.owner.user.username}}</i></span>
                     </td>
                 </tr>
+
+            {% elif result.get_name == 'Forum' %}
+                <tr class="my-table">
+                    <td style="color:cornflowerblue"><a href="{% url 'all_games' %}">Forum</a></td>
+                    <td>
+                        <h4><a href="{% url 'community:forum' pk=result.pk %}">{{result.topic}}</a></h4>
+                        <span><small class="text-muted">posted  {{result.date_created}}</small>   <small class="text-muted">by</small><i style="color: #212529;" class="ml-2">{{result.forum_admin.owner.username}}</i></span>
+                    </td>
+                </tr>
+            {% elif result.get_name == 'Blog' %}
+                <tr class="my-table">
+                    <td style="color:cornflowerblue"><a href="{% url 'all_games' %}">Blog</a></td>
+                    <td>
+                        <h4><a href="{% url 'blog:blog_detail' pk=result.pk slug=result.slug %}">{{result.title}}</a></h4>
+                        <span><small class="text-muted">posted  {{result.date_created}}</small>   <small class="text-muted">by</small><i style="color: #212529;" class="ml-2">{{result.writer.username}}</i></span>
+                    </td>
+                </tr>
+
             {% endif %}
 
             {% empty %}

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Games info and general thoughts about games |gameworkshop
+{% endblock %}
+
+{% block content %}
+<!-- blog container -->
+<div class="container">
+
+    <!-- row -->
+    <div class="row">
+ 
+        <!-- col-md-8 -->
+        <div class="col-md-8">
+        {% for blog in blogs %}
+
+            <!-- blog-group -->
+            <div class="blog-group border-bottom py-3">
+
+                <div class="writer-info d-flex justify-content-start">
+                    <img src="{{blog.writer.member.pic.url}}" alt="">
+                    <div class="writer-names d-flex flex-column justify-content-start ml-2">
+                        <a style="color: #00398f;text-decoration: none;font-weight: bolder;" href="{% url 'account:profile' username=blog.writer.username %}">{{blog.writer.username}}</a>
+                        <span class="text-muted">{{blog.writer.member.proffession|truncatechars:"80"}}</span>
+                    </div>
+                </div>
+
+                <div class="blog-titles ml-4 my-2">
+                    <h3>{{blog.title}}</h3>
+                    <span class="text-muted">Published {{blog.date_created|timesince}}</span>
+                </div>
+
+                <!-- blog content -->
+                <div class="blog-contents d-flex flex-column justify-content-start">
+                    <!-- couresel -->
+                    <div id="gameshopIndicator" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#gameshopIndicator" data-slide-to="0" class="active"></li>
+                            <li data-target="#gameshopIndicator" data-slide-to="1"></li>
+                            <li data-target="#gameshopIndicator" data-slide-to="2"></li>
+                        </ol>
+
+                        <div class="carousel-inner">
+
+                            <div class="carousel-item active">
+                                <img style="height:323px;" class="d-block w-100" src="{{blog.image.url}}" alt="First slide">
+                            </div>
+
+                            {% for img in blog.medias.all %}
+                                <div style="height:323px;" class="carousel-item">
+                                    <img class="d-block w-100" src="{{img.image_one.url}}" alt="Second slide">
+                                </div>
+
+                                <div style="height:323px;" class="carousel-item">
+                                    <img class="d-block w-100" src="{{img.image_two.url}}" alt="Second slide">
+                                </div>
+
+                                <div style="height:323px;" class="carousel-item">
+                                    <img class="d-block w-100" src="{{img.image_three.url}}" alt="Second slide">
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        <a class="carousel-control-prev" href="#gameshopIndicator" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#gameshopIndicator" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+
+                    </div>
+                    <!-- couresel -->
+
+                    <div class="blog-contents--body p-3">
+                        {{blog.content|safe|truncatechars:"700"}}
+                    </div>
+
+                    <div class="my_btn_group">
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'blog:blog_detail' pk=blog.pk slug=blog.slug %}">read more</a>
+                    </div>
+
+                    <div class="blog-metadata d-flex justify-content-around">
+                        <div class="blog-social-sharing d-flex justify-content-between">
+                            <i class="fab fa-google-plus ml-2"></i>
+                            <i class="fab fa-twitter ml-2"></i>
+                            <i class="fab fa-facebook-square ml-2"></i>
+                            <i class="fab fa-linkedin ml-2"></i>
+                        </div>
+
+                        <span class="blog-views text-muted"><i class="fas fa-eye"></i> 1500 views</span>
+                    </div>
+                </div>
+                <!-- blog content -->
+
+        </div>
+        <!-- blog-group -->
+        {% endfor %}
+
+
+    </div>
+    <!-- col-md-8 -->
+       
+    
+    <!-- .col-4 -->
+    <div class="col-md-4 mb-3">
+        <div style="position:relative;" class="quick-view d-flex">
+            {% for blog in myblog %}
+                <div class="quick-title">
+                    <h2 class="text-danger">{{blog.title}}</h2>
+                </div>
+                <img class="w-50" style="height:300px;" src="{{blog.image.url}}" alt="">
+                <div class="blog-mediac d-flex flex-column ml-1">
+                    {% for img in  blog.medias.all %}
+                    <img style="height:150px;" class="w-100" src="{{img.image_one.url}}" alt="">
+                    <img style="height:146px;" class="w-100 mt-1" src="{{img.image_two.url}}" alt="">
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        
+        <h5 class="mt-3 border-bottom p-1">TRENDING</h5>
+        <div class="top-stories">     
+        {% for forum in forums %}
+            <div style="background:#d8d8d8;" class="top-stories--group d-flex flex-column p-3 my-2">
+                <a href="{% url 'community:forum' pk=forum.pk  %}">{{forum.topic}}</a>
+                <div class="story-metadata d-flex justify-content-start">
+                    <span>
+                        <i class="far fa-clock text-muted"></i> 
+                        <i class="text-muted">{{forum.date_created|timesince}}</i>
+                    </span>
+                    <span class="blog-views text-muted ml-3"><i class="fas fa-eye"></i> 1500 views</span>
+                </div>
+            </div>
+        {% endfor %}      
+        </div>
+
+
+        <!-- nav nav-tabs -->
+        <ul class="nav nav-tabs d-flex justify-content-start w-100 mt-3" id="myTab" role="tablist">
+            <li class="nav-item w-50 blog-tabs" style="border-top-left-radius:0px;">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Popular games</a>
+            </li>
+            <li class="nav-item align-self-stretch w-50 blog-tabs" style="border-radius:0px;">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Favourite</a>
+            </li>
+        </ul>
+              
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="list-group list-group-flush my-3">
+                    {% for game in games %}
+                        <li class="list-group-item d-flex justify-content-between extras py-2 pl-0 pr-0">
+                            <div class="blog_gemx mr-auto">
+                                <a href="{% url 'game:game_detail' pk=game.pk %}" class="">{{game.title|truncatechars:"52"}}</a>
+                            </div>                             
+                            {% load static %}
+                            <img style="width:110px; height:61px;" src="{{game.image_cover.url}}" alt="">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <ul class="list-group list-group-flush">
+                    {% for list in collections %}
+                        <li class="list-group-item favourites">
+                            <a href="{% url 'list:list_detail' pk=list.pk %}">{{list.name}}</a> 
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div> 
+
+        </div>
+        <!-- nav nav-tabs -->
+
+        
+    </div>
+    <!-- .col-4 -->
+
+
+    </div>
+    <!-- row -->
+
+
+
+
+</div>
+<!-- container -->
+{% endblock %}

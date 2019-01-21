@@ -1,0 +1,12 @@
+<!-- reply for post -->
+<li class="d-flex justify-content-start">
+    {% load static %}
+    <img class="align-self-start mt-1" style="width: 32px;height: 32px;" src="{% static 'games/g.jpg' %}" alt="">
+    <div class="replier align-self-start ml-2">
+        <span style="color: #007cae;font-weight: 400;">{{reply.owner.user.username}}</span>
+        <div class="replier-text">
+            <span style="opacity: .75; font-size:14px;">{{reply.reply}}</span>
+            <div class="replier-date d-flex justify-content-end text-muted">{{reply.date_replied|timesince}}</div>
+        </div>
+    </div>     
+</li>

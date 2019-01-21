@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Start A forum {% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1>create a forum</h1>
+    <form action="{% url 'community:forum_create' pk=game.pk slug=game.slug %}" method="POST" class="my-5 col-8 ">
+        {% csrf_token %}
+        {{form}}
+        <div class="form-group">
+           <input type="submit" value="Start Forum" class="btn btn-sm btn-block btn-success my-2">
+        </div>
+    </form>
+</div>
+{% endblock %}
