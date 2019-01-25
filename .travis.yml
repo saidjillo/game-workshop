@@ -6,8 +6,8 @@ python:
 env: 
   - DJANGO=2.1.4 DB=sqlite
 
-addons:
-  postgresql: "10"
+# addons:
+#   postgresql: "10"
 
 # command to install dependecies
 install:
