@@ -6,6 +6,9 @@ python:
 env: 
   - DJANGO=2.1.4 DB=postgres
 
+addons:
+  postgresql: "10"
+
 # command to install dependecies
 install:
   - "pip install -r requirements.txt"
