@@ -4,7 +4,7 @@ python:
   - "nightly"
 
 env: 
-  - DJANGO=2.1.4 DB=postgres
+  - DJANGO=2.1.4 DB=sqlite
 
 addons:
   postgresql: "10"
