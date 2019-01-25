@@ -20,7 +20,7 @@
                             <div class="collection-body">
                                 <h3 class="ml-2"><a class="text-dark" href="{% url 'list:list_detail' pk=collection.pk %}">{{collection.name}}</a></h3>
                                 <div class="collection-body--content">
-                                    <span>{{collection.description}}</span>
+                                    <span>{{collection.description|truncatechars:"600"}}</span>
                                     <div class="collection-body--games">
                                         {% for g in collection.game.all|slice:"3" %}
                                         <div class="data ml-2">

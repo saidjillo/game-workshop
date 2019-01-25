@@ -72,10 +72,10 @@
 
               <ul class="navbar-nav d-flex flex-row justify-content-around container">
                  <li class="nav-item m-1">
-                    <a class="nav-link text-light text-center" href="{% url 'community:all_forums' %}">Forums</a>
+                    <a class="nav-link text-light text-center" style="font-size:18px;color:#00d6d6 !important;font-weight:bolder;" href="{% url 'community:all_forums' %}">Forums</a>
                  </li>         
                 <li class="nav-item dropdown m-1">
-                  <a class="nav-link dropdown-toggle gameshopdropdown text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a class="nav-link dropdown-toggle gameshopdropdown text-light" style="font-size:18px;color:#00d6d6 !important;font-weight:bolder;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if user.is_authenticated %}
                         {{user.username}}
                         {% else %}
@@ -146,15 +146,15 @@
     <div class="container my-2 d-flex justify-content-between">
         <ul class="nav justify-content-left mr-auto">
             <li class="nav-item">
-              <a class="nav-link linker" href="{% url 'all_games' %}">Games</a>
+              <a class="nav-link linker" href="{% url 'all_games' %}" style="color:#00d6d6 !important;font-weight:bolder;">Games</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link linker" href="{% url 'home' %}">Collections</a>
+              <a class="nav-link linker" href="{% url 'home' %}" style="color:#00d6d6 !important;font-weight:bolder;">Collections</a>
             </li>
         </ul>
 
         <div class="header-metas d-flex justify-content-end align-items-center">
-            <a href="{% url 'blog:blogs' %}" class="text-muted" style="text-decoration:none;">Explore</a>
+            <a href="{% url 'blog:blogs' %}" class="text-muted" style="text-decoration:none;color:#00d6d6 !important;font-weight:bolder;">Explore</a>
             <span class="text-muted d-none">&nbsp;Join now &nbsp;|</span>
             <span class="text-muted d-none">&nbsp;{% now "jS F Y" %}</span>
         </div>
