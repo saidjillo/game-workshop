@@ -1,0 +1,14 @@
+language: python 
+python:
+  - "3.7"
+
+env: 
+  - DJANGO=2.1.4 DB=sqlite
+
+# command to install dependecies
+install:
+  - "pip intsall pytest"
+  - "pip intsall -r requirements.txt"
+
+# command to run test
+script:   python manage.py test
