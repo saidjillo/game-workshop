@@ -8,8 +8,8 @@ env:
 
 # command to install dependecies
 install:
-  - "pip intsall pytest"
-  - "pip intsall -r requirements.txt"
+  - "pip install pytest"
+  - "pip install -r requirements.txt"
 
 # command to run test
 script:   python manage.py test
