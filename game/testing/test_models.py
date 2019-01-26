@@ -36,7 +36,7 @@ class GameTestCase(TestCase):
     #     self.assertEqual(game.views,20)
 
     def test__str__(self):
-        game = game = Game.objects.get(title="pacman 2018")
+        game = Game.objects.get(title="pacman 2018")
         self.assertEqual(game.__str__(), "pacman 2018")
         self.assertEqual(5,5)
       
