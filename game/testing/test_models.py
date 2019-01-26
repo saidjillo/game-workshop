@@ -9,12 +9,12 @@ from game.models import Game
 class GameTestCase(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="testuser", password="testpassword")
-        self.member = Member.objects.create(user=self.user)
+       
         self.game_list =  GameList.objects.create(
             name = "My best games ever",
             description  = "This is test description",
             views =15,
-            owner =self.member
+            owner =self.user.member
         )
 
         # create game objects
