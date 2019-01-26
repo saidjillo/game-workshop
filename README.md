@@ -77,7 +77,7 @@ The project is currently hosted at * [saidjillo.pythonanywhere.com](http://www.s
 
 
 ## project preview
-![app screenshot](https://github.com/saidjillo/events-like-website-template/blob/master/event_homepage_screenshot.png)
+![app screenshot](https://raw.githubusercontent.com/saidjillo/game-workshop/master/screencapture-saidjillo-pythonanywhere-2019-01-22-15_10_42.png)
 
 
 
