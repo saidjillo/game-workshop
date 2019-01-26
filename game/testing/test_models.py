@@ -27,13 +27,13 @@ class GameTestCase(TestCase):
             game_list=self.game_list
         )
 
-    # def test_create_game(self):
-    #     game = Game.objects.get(title="pacman 2018")
-    #     self.assertEqual(game.title, "pacman 2018")
-    #     self.assertEqual(game.description, "test description")
-    #     self.assertEqual(game.game_developer, "galana")
-    #     self.assertEqual(game.url, "https://www.youtube.com/watch?v=mIBEl26er6Y")
-    #     self.assertEqual(game.views,20)
+    def test_create_game(self):
+        game = Game.objects.get(title="pacman 2018")
+        self.assertEqual(game.title, "pacman 2018")
+        self.assertEqual(game.description, "test description")
+        self.assertEqual(game.game_developer, "galana")
+        self.assertEqual(game.url, "https://www.youtube.com/watch?v=mIBEl26er6Y")
+        self.assertEqual(game.views,20)
 
     def test__str__(self):
         game = Game.objects.get(title="pacman 2018")
